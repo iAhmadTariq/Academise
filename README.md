@@ -1,2 +1,2 @@
 **Academia**
-A advanced AI platform for learning 
+A advanced AI platform for learning.
