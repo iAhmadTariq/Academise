@@ -19,7 +19,7 @@ class TextFieldInput extends StatelessWidget {
   Widget build(BuildContext context) {
     final inputBorder = OutlineInputBorder(
       borderSide: Divider.createBorderSide(context),
-      borderRadius: BorderRadius.all(Radius.circular(25)),
+      borderRadius:const BorderRadius.all(Radius.circular(25)),
     );
     return TextField(
       cursorColor: purpleColor,
@@ -30,7 +30,7 @@ class TextFieldInput extends StatelessWidget {
         focusedBorder: inputBorder,
         enabledBorder: inputBorder,
         filled: true,
-        contentPadding: EdgeInsets.symmetric(
+        contentPadding: const EdgeInsets.symmetric(
           horizontal: 20,
           vertical: 12
         ),

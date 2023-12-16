@@ -1,3 +1,4 @@
+import 'package:academise_front/screens/home_screen.dart';
 import 'package:academise_front/screens/login_screen.dart';
 import 'package:academise_front/utils/color.dart';
 import 'package:flutter/material.dart';
@@ -17,7 +18,7 @@ class MyApp extends StatelessWidget {
         scaffoldBackgroundColor: mobileBackgroundColor,
       ),
       title: "Academise",
-      home: LoginScreen(),
+      home: HomeScreen(),
     );
   }
 }
