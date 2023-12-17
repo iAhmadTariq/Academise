@@ -1,7 +1,15 @@
+import 'dart:convert';
+
+import 'package:academise_front/models/user.dart';
+import 'package:academise_front/screens/home_screen.dart';
+import 'package:academise_front/screens/signup_screen_1.dart';
+import 'package:academise_front/userPreference/user_preference.dart';
 import 'package:academise_front/utils/color.dart';
+import 'package:academise_front/utils/dbconnection_links.dart';
 import 'package:academise_front/widgets/text_field_input.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:http/http.dart' as http;
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -12,6 +20,55 @@ class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   bool _hidePass = true;
+
+  Future<void> loginUser() async {
+    try {
+      String uri = loginUrl;
+      var res = await http.post(Uri.parse(uri), body: {
+        "email": _emailController.text,
+        "password": _passwordController.text,
+      });
+      var response = json.decode(res.body);
+      if (response["success"] == "true") {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text("Login Successful"),
+            backgroundColor: Colors.green,
+          ),
+        );
+        User user = User.fromJson(response["userRecord"]);
+        await RememberUserPreference.saveRemeberUser(user);
+
+        Future.delayed(Duration(seconds: 1), () {
+          Navigator.pushReplacement(
+              context, MaterialPageRoute(builder: ((context) => HomeScreen())));
+        });
+
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text("Login Failed, email or password incorrect"),
+            backgroundColor: Colors.red,
+          ),
+        );
+      }
+    } catch (e) {
+      print(e.toString());
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(e.toString()),
+          backgroundColor: Colors.red,
+        ),
+      );
+    }
+    
+    dispose() {
+      _emailController.dispose();
+      _passwordController.dispose();
+    }
+  }
+
+
   @override
   Widget build(BuildContext context) {
     final inputBorder = OutlineInputBorder(
@@ -87,6 +144,9 @@ class _LoginScreenState extends State<LoginScreen> {
                 height: 20,
               ),
               InkWell(
+                onTap: () {
+                  loginUser();
+                },
                 child: Container(
                   width: double.infinity,
                   alignment: Alignment.center,
@@ -109,6 +169,12 @@ class _LoginScreenState extends State<LoginScreen> {
                     padding: EdgeInsets.symmetric(vertical: 12),
                   ),
                   GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: ((context) => SignUpScreen1())));
+                    },
                     child: Container(
                       child: Text(
                         "Sign up",

@@ -1,4 +1,6 @@
+import 'package:academise_front/screens/home_screen.dart';
 import 'package:academise_front/screens/login_screen.dart';
+import 'package:academise_front/userPreference/user_preference.dart';
 import 'package:academise_front/utils/color.dart';
 import 'package:flutter/material.dart';
 
@@ -17,7 +19,16 @@ class MyApp extends StatelessWidget {
         scaffoldBackgroundColor: mobileBackgroundColor,
       ),
       title: "Academise",
-      home: LoginScreen(),
+      home: FutureBuilder(
+        future: RememberUserPreference.getRememberUser(),
+        builder: (context, dataSnapshot) {
+          if (dataSnapshot.hasData) {
+            return HomeScreen();
+          } else {
+            return LoginScreen();
+          }
+        },
+      ),
     );
   }
 }

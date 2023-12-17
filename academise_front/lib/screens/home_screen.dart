@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:academise_front/utils/color.dart';
 import 'package:academise_front/utils/global_variables.dart';
+import 'package:google_nav_bar/google_nav_bar.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -45,35 +46,35 @@ class _HomeScreenState extends State<HomeScreen> {
         controller: pageController,
         onPageChanged: onPageChanged,
       ),
-      bottomNavigationBar: CupertinoTabBar(
-        items: [
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.add_box,
-              color: _page == 0 ? primaryColor : secondaryColor,
+      bottomNavigationBar: Padding(
+        padding: EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+        child: GNav(
+          gap: 4,
+          activeColor: primaryColor,
+          tabBackgroundColor: secondMobileBackgroundColor,
+          padding: EdgeInsets.all(16),
+          onTabChange: (index) {
+            setState(() {
+              _page = index;
+            });
+            pageController.jumpToPage(index);
+          },
+          iconSize: 24,
+          tabs: const [
+            GButton(
+              icon: Icons.home_outlined,
+              text: 'Home',
             ),
-            label: '',
-            backgroundColor: primaryColor,
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.chat,
-              color: _page == 1 ? primaryColor : secondaryColor,
+            GButton(
+              icon: Icons.chat,
+              text: 'Chat',
             ),
-            label: '',
-            backgroundColor: primaryColor,
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.person,
-              color: _page == 2 ? primaryColor : secondaryColor,
+            GButton(
+              icon: Icons.person,
+              text: 'Profile',
             ),
-            label: '',
-            backgroundColor: primaryColor,
-          ),
-        ],
-        backgroundColor: mobileBackgroundColor,
-        onTap: navigationTapped,
+          ],
+        ),
       ),
     );
   }
