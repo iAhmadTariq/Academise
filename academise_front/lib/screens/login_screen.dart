@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:academise_front/models/user.dart';
 import 'package:academise_front/screens/home_screen.dart';
 import 'package:academise_front/screens/signup_screen_1.dart';
+import 'package:academise_front/screens/student_screens/student_home_screen.dart';
 import 'package:academise_front/userPreference/user_preference.dart';
 import 'package:academise_front/utils/color.dart';
 import 'package:academise_front/utils/dbconnection_links.dart';
@@ -12,6 +13,8 @@ import 'package:flutter_svg/svg.dart';
 import 'package:http/http.dart' as http;
 
 class LoginScreen extends StatefulWidget {
+  bool isStudent;
+  LoginScreen({this.isStudent = false});
   @override
   State<LoginScreen> createState() => _LoginScreenState();
 }
@@ -27,6 +30,7 @@ class _LoginScreenState extends State<LoginScreen> {
       var res = await http.post(Uri.parse(uri), body: {
         "email": _emailController.text,
         "password": _passwordController.text,
+        "isStudent": widget.isStudent.toString(),
       });
       var response = json.decode(res.body);
       if (response["success"] == "true") {
@@ -41,9 +45,12 @@ class _LoginScreenState extends State<LoginScreen> {
 
         Future.delayed(Duration(seconds: 1), () {
           Navigator.pushReplacement(
-              context, MaterialPageRoute(builder: ((context) => HomeScreen())));
+            context,
+            MaterialPageRoute(
+              builder: ((context) => widget.isStudent?StudentHomeScreen():HomeScreen()),
+            ),
+          );
         });
-
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
@@ -61,13 +68,12 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
       );
     }
-    
+
     dispose() {
       _emailController.dispose();
       _passwordController.dispose();
     }
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -171,9 +177,13 @@ class _LoginScreenState extends State<LoginScreen> {
                   GestureDetector(
                     onTap: () {
                       Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: ((context) => SignUpScreen1())));
+                        context,
+                        MaterialPageRoute(
+                          builder: ((context) => SignUpScreen1(
+                                isStudent: widget.isStudent,
+                              )),
+                        ),
+                      );
                     },
                     child: Container(
                       child: Text(

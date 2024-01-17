@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:academise_front/screens/add_course/add_course_screen.dart';
 import 'package:academise_front/userPreference/current_user.dart';
 import 'package:academise_front/utils/color.dart';

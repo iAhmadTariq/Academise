@@ -1,3 +1,4 @@
+import 'package:academise_front/screens/first_menu_screen.dart';
 import 'package:academise_front/screens/login_screen.dart';
 import 'package:academise_front/userPreference/current_user.dart';
 import 'package:academise_front/userPreference/user_preference.dart';
@@ -17,7 +18,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
   late CurrentUser _currentUser;
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     _currentUser = Get.put(CurrentUser());
   }
@@ -85,31 +85,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
               height: 20,
             ),
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                TextButton(
-                  onPressed: () {},
-                  child: Text(
-                    'Edit Profile',
-                    style: TextStyle(
-                      fontSize: 14,
-                    ),
-                  ),
-                  style: TextButton.styleFrom(
-                    primary: Colors.white,
-                    backgroundColor: purpleColor,
-                    textStyle: TextStyle(
-                      fontSize: 20,
-                    ),
-                    padding: EdgeInsets.symmetric(
-                      horizontal: 15,
-                      vertical: 10,
-                    ),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                  ),
-                ),
                 TextButton(
                   onPressed: () => showDialog(
                     context: context,
@@ -129,7 +106,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             RememberUserPreference.removeRememberUser();
                             Navigator.of(context).pushReplacement(
                               MaterialPageRoute(
-                                builder: (context) => LoginScreen(),
+                                builder: (context) => FirstMenuScreen(),
                               ),
                             );
                           },

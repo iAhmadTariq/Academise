@@ -59,7 +59,7 @@ class _GenerateQuizScreenState extends State<GenerateQuizScreen> {
 Future<String> fetchResponse(String prompt) async {
   try {
     final response = await http.post(
-      Uri.parse('http://10.7.93.182:5000/'),
+      Uri.parse('http://address_generated_by_ip_here'),
       headers: {'Content-Type': 'application/json'},
       body: jsonEncode({'prompt': prompt}),
     );

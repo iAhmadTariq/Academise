@@ -15,8 +15,7 @@ class SignUpScreen3 extends StatefulWidget {
   _SignUpScreen3State createState() => _SignUpScreen3State();
 }
 
-class _SignUpScreen3State extends State<SignUpScreen3>
-    with SingleTickerProviderStateMixin {
+class _SignUpScreen3State extends State<SignUpScreen3>{
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _confirmPassController = TextEditingController();
@@ -45,8 +44,8 @@ class _SignUpScreen3State extends State<SignUpScreen3>
         "date_of_birth": widget.data['dob'],
         "email": _emailController.text,
         "password": _passwordController.text,
+        "isStudent": widget.data['isStudent'],
       });
-      print('here');
       var response = json.decode(res.body);
       if (response["success"] == "true") {
         ScaffoldMessenger.of(context).showSnackBar(
@@ -113,20 +112,6 @@ class _SignUpScreen3State extends State<SignUpScreen3>
                 flex: 1,
                 child: Container(),
               ),
-              Row(
-                children: [
-                  Container(
-                    padding: EdgeInsets.symmetric(horizontal: 10),
-                    child: Text(
-                      'Sign up',
-                      style: TextStyle(
-                        fontSize: 30,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
               SizedBox(
                 height: 15,
               ),
@@ -135,10 +120,10 @@ class _SignUpScreen3State extends State<SignUpScreen3>
                   Container(
                     padding: EdgeInsets.symmetric(horizontal: 10),
                     child: Text(
-                      'Personal details',
+                      'Credentials',
                       style: TextStyle(
-                        fontSize: 20,
-                        color: secondaryColor,
+                        fontSize: 30,
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
                   ),
@@ -303,9 +288,10 @@ class _SignUpScreen3State extends State<SignUpScreen3>
                         color: purpleColor,
                       ),
                       child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
                           Container(
-                            padding: EdgeInsets.symmetric(horizontal: 20),
+                            padding: EdgeInsets.symmetric(horizontal: 10),
                             child: const Text(
                               'Done',
                             ),

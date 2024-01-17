@@ -84,9 +84,13 @@ class _ChatWithAIState extends State<ChatWithAI> {
       _messages.add(prompt);
     });
     _controller.clear();
+    
     try {
+      
       final response = await fetchResponse(prompt);
+      print(prompt);
       final responseJson = jsonDecode(response);
+      
       setState(() {
         _messages.add(responseJson['response']);
       });
@@ -98,7 +102,7 @@ class _ChatWithAIState extends State<ChatWithAI> {
 
 Future<String> fetchResponse(String prompt) async {
   final response = await http.post(
-    Uri.parse('http://10.7.93.182:5000/'),
+    Uri.parse('http://address_generated_by_ip_here'),
     headers: {'Content-Type': 'application/json'},
     body: jsonEncode(
         {'prompt': prompt}), // Add this line to send the request payload

@@ -7,3 +7,4 @@ const mobileSearchColor = Color.fromRGBO(58, 47, 47, 1);
 const purpleColor = Color.fromRGBO(97, 56, 242, 1);
 const primaryColor = Color.fromARGB(255, 255, 255, 255);
 const secondaryColor = Colors.grey;
+const thirdColor = Color.fromRGBO(68, 68, 68, 1);

@@ -1,9 +1,12 @@
 import 'package:academise_front/screens/signup_screen_2.dart';
+import 'package:academise_front/screens/student_screens/add_education_screen.dart';
 import 'package:academise_front/utils/color.dart';
 import 'package:academise_front/widgets/text_field_input.dart';
 import 'package:flutter/material.dart';
 
 class SignUpScreen1 extends StatefulWidget {
+  bool isStudent;
+  SignUpScreen1({this.isStudent = false});
   @override
   _SignUpScreen1State createState() => _SignUpScreen1State();
 }
@@ -26,7 +29,6 @@ class _SignUpScreen1State extends State<SignUpScreen1>
     if (picked != null && picked != _selectedDate) {
       setState(() {
         _selectedDate = picked;
-        print("Selected date: $_selectedDate");
       });
     }
   }
@@ -36,6 +38,7 @@ class _SignUpScreen1State extends State<SignUpScreen1>
       'first_name': _firstNameController.text,
       'last_name': _lastNameController.text,
       'dob': _selectedDate.toString().substring(0, 10),
+      'isStudent': widget.isStudent.toString(),
     };
     dispose(){
       _firstNameController.dispose();
@@ -178,7 +181,7 @@ class _SignUpScreen1State extends State<SignUpScreen1>
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => SignUpScreen2(data: _data),
+                            builder: (context) => widget.isStudent?AddEducationScreen(data: _data):SignUpScreen2(data: _data),
                           ),
                         );
                       }
